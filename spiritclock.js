@@ -11,32 +11,29 @@ Script.complete()
 
 async function createWidget() {
   let widget = new ListWidget()
-  const gradientColour = [[new Color("435d88"),
-    new Color("96bae8")],[new Color("e5a4a5"),
-    new Color("ffe9dc")],[new Color("baecce"),new Color("e0fdcc")],[new Color("64afd9"), new Color("d0f0fd")],[new Color("c56b86"),
-    new Color("f5cbd9")],        [new Color("0c1f54"),
-    new Color("285c8b")]]
+  const gradientColour = [
+    [new Color("435d88"), new Color("96bae8")],
+    [new Color("e5a4a5"), new Color("ffe9dc")],
+    [new Color("baecce"), new Color("e0fdcc")],
+    [new Color("64afd9"), new Color("d0f0fd")],
+    [new Color("c56b86"), new Color("f5cbd9")],
+    [new Color("0c1f54"), new Color("285c8b")]
+  ]
   // Add background gradient
-  let time = Math.floor(new Date().getHours()/4)
+  let time = Math.floor(new Date().getHours() / 4)
   let gradient = new LinearGradient()
   gradient.locations = [0, 1]
   gradient.colors = gradientColour[time]
-   widget.backgroundGradient = gradient
-   await setImage(widget, time)
+  widget.backgroundGradient = gradient
+  await setImage(widget, time)
 
   return widget
 }
 
-async function setImage(widget, time){
-  const images =   ["1032388496901546066/0.png",
-"1032388497274851398/1.png",
-"1032388497702658068/2.png",
-"1032388498147258418/3.png",
-"1032388498600235068/4.png",
-"1032388498981929022/5.png"]
-  const prefix = "https://cdn.discordapp.com/attachments/755447825520787477/"
+async function setImage(widget, index) {
+  const image_url = `https://raw.githubusercontent.com/Pieloaf/spiritclock_widget/main/imgs/${index}.png`
 
-  let req = new Request(prefix+images[time])
+  let req = new Request(image_url)
   let image = await req.loadImage()
   let clockImage = widget.addImage(image)
   clockImage.applyFillingContentMode()
